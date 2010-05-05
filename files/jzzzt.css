@@ -1,0 +1,42 @@
+html {
+	background-color: #000000;
+	color: #FFBF00;
+}
+
+hr {
+	color: #FFBF00;
+}
+
+input, select {
+	background-color: black;
+	color: #FFBF00;
+	border-width: 0;
+	border: 1px solid #FFBF00;
+}
+
+
+#ans {
+	border: 1px solid #FFBF00;
+}
+table{
+	border-width: 0px;
+	border-spacing: 0px;
+	border-collapse: collapse;
+}
+th, td {
+	border-width: 0px;
+	padding: 0px;
+	border-style: inset;
+	-moz-border-radius: 0px;
+	}
+#leg{
+	border: yellow 1px solid;
+}
+	
+#legi{
+	float: left;
+	}
+
+#legt{
+	float: right;
+	}
