@@ -12,7 +12,7 @@ ZZT is an ANSI character-based computer game, created in <strong>1991</strong> b
 ##zzt the massive multiplayer online game
 
 
-navigate through an ascii world of lions, tigers, and bars ohh my! grok grogs of mead while navigating dungeons with your friends getting phat lewtz. all real-time, all browser based with no plugins. <strong>100% javascript</strong>. currently only single player mode is supported, but we are very close to releasing multiplayer support. pull requests are always welcome!
+journey through an ascii world of lions, tigers, and bars ohh my! grok grogs of mead while navigating dungeons with your friends getting phat lewtz. all real-time, all browser based with no plugins. <strong>100% javascript</strong>. currently only single player mode is supported, but we are very close to releasing multiplayer support. pull requests are always welcome!
 
 
 ##Authors
