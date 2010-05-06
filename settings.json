@@ -1,0 +1,8 @@
+{
+    "port" : 9000,
+
+    "default_host" : {
+        "root" : "/Users/Marak/dev/zztmmo/"
+    }
+
+}
