@@ -5,7 +5,7 @@
 var fs = require('fs'),
 antinode = require('./lib/antinode');
 
-fs.readFile('./settings.json', function(err, data) {
+fs.readFile('/root/nodejitsu/apps/zzt/zztmmo/settings.json', function(err, data) {
     var settings = {};
     if (err) {
         sys.puts('No settings.json found. Using default settings');
