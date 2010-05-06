@@ -66,6 +66,12 @@ $( function() {
 
 		CreateMessage(-1,"About ZZT...","$The Original ZZT\n     Copyright 1991 Epic MegaGames\n\n\n  -- This is a REGISTERED copy --\n Please do not distribute this game!\n");
 		//RedrawEverything();
+		
+		
+  	// lets mess up the load sequence a bit by playing with the "events" lolol ahaha you are not evented yet my friend!
+  	$( "#BPBUTTON" ).click();
+  	debug.log('click event');
+		
 	}
 
 	$( "#UBUTTON" ).click( function() {
@@ -128,7 +134,7 @@ $( function() {
 			case 16: PAD_SHIFT=1; break;
 			case 80: PAD_PAUSE=1; break;
 			default:
-				alert(e.which); break;    
+				debug.log(e.which); break;    
 		}
 
 		switch(ZZT_STATE) {
@@ -191,6 +197,7 @@ $( function() {
 		}
 		return;
 	}
+
  
 });
 
