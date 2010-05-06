@@ -18,7 +18,7 @@ journey through an ascii world of lions, tigers, and bars ohh my! grok grogs of 
 ##Authors
 
 <ul>
-  <li>ryan bloomfield</li>
+  <li>ryan[WIN]</li>
   <li>marak</li>
   <li>nefD</li>
 </ul>
