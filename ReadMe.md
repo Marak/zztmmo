@@ -7,7 +7,7 @@
 [http://zzt.nodejitsu.com](http://zzt.nodejitsu.com)
 
 ##history
-ZZT is an ANSI character-based computer game, created in <strong>1991</strong> by Tim Sweeney, of Epic Games (then Epic Megagames), who later designed Unreal. It remains one of the most <strong>popular DOS game creation systems</strong>. ZZT itself is not an acronym for anything; its title was simply chosen so it would always appear at the very bottom of newsgroup listings.
+ZZT is an ANSI character-based computer game, created in <strong>1991</strong> by Tim Sweeney, of Epic Games (then Epic Megagames), who later designed Unreal. It remains one of the <strong>most popular DOS game creation systems</strong>. ZZT itself is not an acronym for anything; its title was simply chosen so it would always appear at the very bottom of newsgroup listings.
 
 ##zzt the massive multiplayer online game
 
