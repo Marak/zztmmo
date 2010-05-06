@@ -1,3 +1,10 @@
+/*
+ *  Application Initialization 
+ */
+
+/*
+ *  Declare global variables
+ */
 var zzt;
 var currentboard = 0;
 const BOARD_SIZE_X = 60;
@@ -40,39 +47,52 @@ var MESSAGE_HEIGHT = 0;
 var ZZT_STATE = ZZT_GAME;
 
 
+/*
+ *  Document onload event handler
+ *  (Handles initialization of our application)
+ */
 $( function() {
 
+	// Make an ajax request for the master game data from the server.
 	$.getJSON("demo.json", function(data) { loadzzt(data) });
 
+	// Process the game data we receive and use it to start the game.
 	function loadzzt(data) {
 		zzt = data;
-		//Fix program strings
-		for(var boardcounter = 0;boardcounter<=zzt.totalboards;++boardcounter) {
-			for(var objectcount=0;objectcount<=zzt.board[boardcounter].objectmax;++objectcount) {
-				if(zzt.board[boardcounter].objects[objectcount].proglen>0) {
+
+		// Sanitize object program strings.
+		for (var boardcounter = 0; boardcounter <= zzt.totalboards; ++boardcounter) {
+			for (var objectcount=0; objectcount <= zzt.board[boardcounter].objectmax; ++objectcount) {
+				if (zzt.board[boardcounter].objects[objectcount].proglen > 0) {
 					zzt.board[boardcounter].objects[objectcount].program = zzt.board[boardcounter].objects[objectcount].program.replace(/\\n/g,'\n');
 				}
 			}
 		}
+
+		// Initialize our canvas terminal.
 		Terminal.SetupTerminal(Ready,Mouse,zzt_KeyDown,zzt_KeyUp);
 	}
 
 	function Mouse() {
 	}
 
+	// Start our game up by establishing our tick interval timer and displaying a welcome message.
 	function Ready() {
 		loaded = 1;
 		GAME_INTERVAL=setInterval(Update,1000/FPS);
 
 		CreateMessage(-1,"About ZZT...","$The Original ZZT\n     Copyright 1991 Epic MegaGames\n\n\n  -- This is a REGISTERED copy --\n Please do not distribute this game!\n");
 		//RedrawEverything();
+	}	
 		
-		
-  	// lets mess up the load sequence a bit by playing with the "events" lolol ahaha you are not evented yet my friend!
-  	$( "#BPBUTTON" ).click();
-  	debug.log('click event');
-		
-	}
+	/*
+	 *	Mock 'key' ui element click handlers.
+	 */
+
+  	// lets mess up the load sequence a bit by playing with the "events" lolol ahaha you are not evented yet my friend! (ed: LAWL)
+  	$( "#BPBUTTON" ).click( function() {
+	  	debug.log('click event');	
+	});
 
 	$( "#UBUTTON" ).click( function() {
 		var blah = {which:38};
@@ -117,6 +137,7 @@ $( function() {
 		//RenderTerminal();
 	});
 
+	// Handle KeyDown events as needed.
 	function zzt_KeyDown(e) {
 		switch (e.which) {
 			case 27: PAD_ESC=1; break;
@@ -176,7 +197,7 @@ $( function() {
 				break;
 		}
 	}
-	 
+	
 	function zzt_KeyUp(e) {
 		switch (e.which) {
 			case 13: PAD_ENTER=0; return;
