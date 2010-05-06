@@ -47,12 +47,9 @@ $( function() {
 	function loadzzt(data) {
 		zzt = data;
 		//Fix program strings
-		for(var boardcounter = 0;boardcounter<=zzt.totalboards;++boardcounter)
-		{
-			for(var objectcount=0;objectcount<=zzt.board[boardcounter].objectmax;++objectcount)
-			{
-				if(zzt.board[boardcounter].objects[objectcount].proglen>0)
-				{
+		for(var boardcounter = 0;boardcounter<=zzt.totalboards;++boardcounter) {
+			for(var objectcount=0;objectcount<=zzt.board[boardcounter].objectmax;++objectcount) {
+				if(zzt.board[boardcounter].objects[objectcount].proglen>0) {
 					zzt.board[boardcounter].objects[objectcount].program = zzt.board[boardcounter].objects[objectcount].program.replace(/\\n/g,'\n');
 				}
 			}
@@ -63,8 +60,7 @@ $( function() {
 	function Mouse() {
 	}
 
-	function Ready()
-	{
+	function Ready() {
 		loaded = 1;
 		GAME_INTERVAL=setInterval(Update,1000/FPS);
 
@@ -95,12 +91,10 @@ $( function() {
 		var blah = {which:39};
 		zzt_KeyDown(blah);
 		zzt_KeyUp(blah);
-
 	});
 
 	$( "#BMBUTTON" ).click( function() {
-		if(loaded==1)
-		{
+		if(loaded==1) {
 			Terminal.Clear();
 			if(currentboard>0) --currentboard;
 		}
@@ -109,8 +103,7 @@ $( function() {
 	});
 
 	$( "#BPBUTTON" ).click( function() {
-		if(loaded==1)
-		{
+		if(loaded==1) {
 			Terminal.Clear()
 			if(currentboard<zzt.totalboards) ++currentboard;
 		}
@@ -119,8 +112,7 @@ $( function() {
 	});
 
 	function zzt_KeyDown(e) {
-		switch (e.which)
-		{
+		switch (e.which) {
 			case 27: PAD_ESC=1; break;
 			case 13: PAD_ENTER=1; break;
 			case 33: PAD_PGUP=1; break;
@@ -139,11 +131,9 @@ $( function() {
 				alert(e.which); break;    
 		}
 
-		switch(ZZT_STATE)
-		{
+		switch(ZZT_STATE) {
 			case ZZT_PAUSE:
-				if(PAD_UP || PAD_DOWN || PAD_LEFT || PAD_RIGHT)
-				{
+				if(PAD_UP || PAD_DOWN || PAD_LEFT || PAD_RIGHT) {
 					ZZT_STATE=ZZT_GAME;
 					zzt_KeyDown(e);
 				}
@@ -157,41 +147,32 @@ $( function() {
 				if(MESSAGE_CURRLINE<0) MESSAGE_CURRLINE=0;
 				if(MESSAGE_CURRLINE>linesmsg-15) MESSAGE_CURRLINE=linesmsg-15;
 				if(PAD_ESC) MESSAGE_STATE=STATE_MESSAGE_CLOSE;
-				if(PAD_ENTER)
-				{
+				if(PAD_ENTER) {
 					if(SelectMenu()==1) MESSAGE_STATE=STATE_MESSAGE_CLOSE;
 					PAD_ENTER = 0;
 				}
 				DrawMessage();
 				break;
 			case ZZT_GAME:
-				if(currentboard!=0)
-				{
-					if(PAD_PAUSE==1)
-					{
+				if(currentboard!=0) {
+					if(PAD_PAUSE==1) {
 						ZZT_STATE=ZZT_PAUSE;	
 					}
 					//player
-					if(PAD_DOWN==1 || PAD_UP==1)
-					{
+					if(PAD_DOWN==1 || PAD_UP==1) {
 						if(PAD_SHIFT==1) Template_Player.Shoot(0,0,(PAD_DOWN-PAD_UP),0);
 						else MoveObject(0,0,PAD_DOWN-PAD_UP);
-					}
-					else if(PAD_LEFT==1 || PAD_RIGHT==1)
-					{
+					} else if(PAD_LEFT==1 || PAD_RIGHT==1) {
 						if(PAD_SHIFT==1) Template_Player.Shoot(0,(PAD_RIGHT-PAD_LEFT),0,0);
 						else MoveObject(0,PAD_RIGHT-PAD_LEFT,0);
 					}
 				}
 				break;
-				
 		}
 	}
 	 
-	function zzt_KeyUp(e)
-	{
-		switch (e.which)
-		{
+	function zzt_KeyUp(e) {
+		switch (e.which) {
 			case 13: PAD_ENTER=0; return;
 			case 27: PAD_ESC=0; return;
 

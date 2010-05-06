@@ -1,61 +1,52 @@
-function DrawBoardPosition(drawx,drawy)
-{
+function DrawBoardPosition(drawx,drawy) {
 	var foundID = zzt.board[currentboard].text[drawy][drawx].ID;
 	var foundCOL = zzt.board[currentboard].text[drawy][drawx].color;
 	var lit = true;
 	zzt.tcycles = 1; //Remove this later - Torch Cycles start at 200 when torch used.  Counts down from frames.
-	if(zzt.board[currentboard].dark==true)
-	{
+	if (zzt.board[currentboard].dark == true) {
 		var distx = drawx - (zzt.board[currentboard].objects[0].x-1);
 		var disty = drawy - (zzt.board[currentboard].objects[0].y-1);
-		if(!IsHit(drawx,drawy,1,zzt.board[currentboard].objects[0].x-1,zzt.board[currentboard].objects[0].y-1,4)) lit=false;
-		if(zzt.tcycles==0) lit=false;
+		if (!IsHit(drawx,drawy,1,zzt.board[currentboard].objects[0].x-1,zzt.board[currentboard].objects[0].y-1,4)) lit=false;
+		if (zzt.tcycles == 0) lit=false;
 	}
 
-	if(foundID<0x2F)
-	{
-		switch(foundID)
-		{
+	if (foundID < 0x2F) {
+		switch(foundID) {
 			case 0x4:
-				if(currentboard==0) Terminal.SetTerminalChar(drawx,drawy,219,0,0);
+				if (currentboard == 0) Terminal.SetTerminalChar(drawx,drawy,219,0,0);
 				else Terminal.SetTerminalChar(drawx,drawy,GetCharacter(foundID,foundCOL),(foundCOL & 15),(foundCOL>>4));
 				break;
 			case 0xA:
-				if(lit==true) Terminal.SetTerminalChar(drawx,drawy,GetCharacter(foundID,foundCOL),9+(FRAMES%7),(foundCOL>>4));
+				if (lit == true) Terminal.SetTerminalChar(drawx,drawy,GetCharacter(foundID,foundCOL),9+(FRAMES%7),(foundCOL>>4));
 				else Terminal.SetTerminalChar(drawx,drawy,177,8,0);
 				break;
 			case 0x24:
 				var fID = GetObjectNumberByCoordinate(drawx,drawy);				
-				if(lit==true) Terminal.SetTerminalChar(drawx,drawy,zzt.board[currentboard].objects[fID].o1,(foundCOL & 15),(foundCOL>>4));
+				if (lit == true) Terminal.SetTerminalChar(drawx,drawy,zzt.board[currentboard].objects[fID].o1,(foundCOL & 15),(foundCOL>>4));
 				else Terminal.SetTerminalChar(drawx,drawy,177,8,0);
 				break;
 			case 0x13:
-				if(lit==true) Terminal.SetTerminalChar(drawx,drawy,GetCharacter(foundID,foundCOL),(FRAMES%(FPS>>1))>(FPS>>3)?15:8,9);
+				if (lit == true) Terminal.SetTerminalChar(drawx,drawy,GetCharacter(foundID,foundCOL),(FRAMES%(FPS>>1))>(FPS>>3)?15:8,9);
 				else Terminal.SetTerminalChar(drawx,drawy,177,8,0);
 				break;
 			default:
-				if(lit==true) Terminal.SetTerminalChar(drawx,drawy,GetCharacter(foundID,foundCOL),(foundCOL & 15),(foundCOL>>4));
+				if (lit == true) Terminal.SetTerminalChar(drawx,drawy,GetCharacter(foundID,foundCOL),(foundCOL & 15),(foundCOL>>4));
 				else Terminal.SetTerminalChar(drawx,drawy,177,8,0);
 				break;
 		}
 	}
-	if(foundID>=0x2F && foundID<=0x34)
-	{
-		if(lit==true) Terminal.SetTerminalChar(drawx,drawy,foundCOL,15,foundID-46);
+	if (foundID >= 0x2F && foundID <= 0x34) {
+		if (lit == true) Terminal.SetTerminalChar(drawx,drawy,foundCOL,15,foundID-46);
 		else Terminal.SetTerminalChar(drawx,drawy,177,8,0);
 	}
-	if(foundID==0x35)
-	{
-		if(lit==true) Terminal.SetTerminalChar(drawx,drawy,foundCOL,15,0);
+	if (foundID == 0x35) {
+		if (lit == true) Terminal.SetTerminalChar(drawx,drawy,foundCOL,15,0);
 		else Terminal.SetTerminalChar(drawx,drawy,177,8,0);
 	}
-
 }
 
-function GetCharacter(fID,fCOLOR)
-{
-	switch(fID)
-	{
+function GetCharacter(fID,fCOLOR) {
+	switch (fID) {
 		case 0x0: //Empty
 		case 0x1: //Special Invisible Wall
 		case 0x1C: //Invisible Wall
@@ -127,7 +118,6 @@ function GetCharacter(fID,fCOLOR)
 		case 0x1B: //Fake
 			return 0xB2;
 			break;
-
 		case 0x1D: //Blink Wall
 		case 0x1E: //Transporter
 		case 0x1F: //Line
@@ -192,20 +182,13 @@ function GetCharacter(fID,fCOLOR)
 		case 0x3D://Grey blinking Text
 			return fCOLOR;
 			break;
-
 		default:
 			return 0x58;
-
 	}
-
-
-
 }
 
-function Solid(pID,px,py)
-{
-	switch(zzt.board[currentboard].text[py][px].ID)
-	{
+function Solid(pID,px,py) {
+	switch (zzt.board[currentboard].text[py][px].ID) {
 		case 0x0: //Empty
 			return false;
 			break;
@@ -213,8 +196,7 @@ function Solid(pID,px,py)
 			return false;
 			break;
 		case 0x1C: //Invisible Wall
-			if(pID==0)
-			{
+			if (pID == 0) {
 				zzt.board[currentboard].text[py][px].ID=0x16;
 			}
 			return true;
@@ -223,8 +205,7 @@ function Solid(pID,px,py)
 			return true;
 			break;
 		case 0x5: //Ammo
-			if(pID==0)
-			{
+			if (pID == 0) {
 				zzt.board[currentboard].text[py][px].ID=0;
 				zzt.board[currentboard].text[py][px].color=0;
 				zzt.ammo+=5;
@@ -233,8 +214,7 @@ function Solid(pID,px,py)
 			return false;
 			break;
 		case 0x6: //Torch
-			if(pID==0)
-			{
+			if (pID == 0) {
 				zzt.board[currentboard].text[py][px].ID=0;
 				zzt.board[currentboard].text[py][px].color=0;
 				zzt.torches++;
@@ -243,8 +223,7 @@ function Solid(pID,px,py)
 			return false;
 			break;
 		case 0x7: //Gem
-			if(pID==0)
-			{
+			if (pID == 0) {
 				zzt.board[currentboard].text[py][px].ID=0;
 				zzt.board[currentboard].text[py][px].color=0;
 				zzt.gems++;
@@ -256,88 +235,64 @@ function Solid(pID,px,py)
 			break;
 		case 0x8: //Key
 			//TODO: GIVE KEY if possible
-			if(pID==0)
-			{
-				if(zzt.board[currentboard].text[py][px].color==9)
-				{
-					if(zzt.bluekey==0)
-					{
+			if (pID == 0) {
+				if (zzt.board[currentboard].text[py][px].color == 9) {
+					if (zzt.bluekey == 0) {
 						zzt.bluekey=1;
 						WriteMessage("You now have the Blue key.");
 						zzt.board[currentboard].text[py][px].ID=0;
 						zzt.board[currentboard].text[py][px].color=0;
-
-					}
-					else
-					{
+					} else {
 						WriteMessage("You already have a Blue key!");
 						return true;
 					}
 				}
-				if(zzt.board[currentboard].text[py][px].color==10)
-				{
-					if(zzt.greenkey==0)
-					{
+				if (zzt.board[currentboard].text[py][px].color == 10) {
+					if (zzt.greenkey == 0) {
 						zzt.greenkey=1;
 						WriteMessage("You now have the Green key.");
 						zzt.board[currentboard].text[py][px].ID=0;
 						zzt.board[currentboard].text[py][px].color=0;
-					}
-					else
-					{
+					} else {
 						WriteMessage("You already have a Green key!");
 						return true;
 					}
 				}
-				if(zzt.board[currentboard].text[py][px].color==11)
-				{
-					if(zzt.cyankey==0)
-					{
+				if (zzt.board[currentboard].text[py][px].color == 11) {
+					if (zzt.cyankey == 0) {
 						zzt.cyankey=1;
 						WriteMessage("You now have the Cyan key.");
 						zzt.board[currentboard].text[py][px].ID=0;
 						zzt.board[currentboard].text[py][px].color=0;
-					}
-					else
-					{
+					} else {
 						WriteMessage("You already have a Cyan key!");
 						return true;
 					}
 				}
-				if(zzt.board[currentboard].text[py][px].color==12)
-				{
-					if(zzt.redkey==0)
-					{
+				if (zzt.board[currentboard].text[py][px].color == 12) {
+					if (zzt.redkey == 0) {
 						zzt.redkey=1;
 						WriteMessage("You now have the Red key.");
 						zzt.board[currentboard].text[py][px].ID=0;
 						zzt.board[currentboard].text[py][px].color=0;
-					}
-					else
-					{
+					} else {
 						WriteMessage("You already have a Blue key!");
 						return true;
 					}
 				}
-				if(zzt.board[currentboard].text[py][px].color==13)
-				{
-					if(zzt.purplekey==0)
-					{
+				if (zzt.board[currentboard].text[py][px].color == 13) {
+					if(zzt.purplekey==0) {
 						zzt.purplekey=1;
 						WriteMessage("You now have the Purple key.");
 						zzt.board[currentboard].text[py][px].ID=0;
 						zzt.board[currentboard].text[py][px].color=0;
-					}
-					else
-					{
+					} else {
 						WriteMessage("You already have a Purple key!");
 						return true;
 					}
 				}
-				if(zzt.board[currentboard].text[py][px].color==14)
-				{
-					if(zzt.yellowkey==0)
-					{
+				if (zzt.board[currentboard].text[py][px].color == 14) {
+					if(zzt.yellowkey==0) {
 						zzt.yellowkey=1;
 						WriteMessage("You now have the Yellow key.");
 						zzt.board[currentboard].text[py][px].ID=0;
