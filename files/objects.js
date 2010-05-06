@@ -281,7 +281,7 @@ function Solid(pID,px,py) {
 					}
 				}
 				if (zzt.board[currentboard].text[py][px].color == 13) {
-					if(zzt.purplekey==0) {
+					if (zzt.purplekey == 0) {
 						zzt.purplekey=1;
 						WriteMessage("You now have the Purple key.");
 						zzt.board[currentboard].text[py][px].ID=0;
@@ -292,8 +292,8 @@ function Solid(pID,px,py) {
 					}
 				}
 				if (zzt.board[currentboard].text[py][px].color == 14) {
-					if(zzt.yellowkey==0) {
-						zzt.yellowkey=1;
+					if (zzt.yellowkey == 0) {
+						zzt.yellowkey = 1;
 						WriteMessage("You now have the Yellow key.");
 						zzt.board[currentboard].text[py][px].ID=0;
 						zzt.board[currentboard].text[py][px].color=0;
@@ -304,17 +304,13 @@ function Solid(pID,px,py) {
 						return true;
 					}
 				}
-				if(zzt.board[currentboard].text[py][px].color==15)
-				{
-					if(zzt.whitekey==0)
-					{
+				if(zzt.board[currentboard].text[py][px].color==15) {
+					if(zzt.whitekey==0) {
 						zzt.whitekey=1;
 						WriteMessage("You now have the White key.");
 						zzt.board[currentboard].text[py][px].ID=0;
 						zzt.board[currentboard].text[py][px].color=0;
-					}
-					else
-					{
+					} else {
 						WriteMessage("You already have a White key!");
 						return true;
 					}
@@ -323,89 +319,73 @@ function Solid(pID,px,py) {
 			return false;
 			break;
 		case 0x9: //Door
-			if(pID==0)
-			{
-				switch(zzt.board[currentboard].text[py][px].color>>4)
-				{
+			if(pID==0) {
+				switch(zzt.board[currentboard].text[py][px].color>>4) {
 					case 1:
-						if(zzt.bluekey==1)
-						{
-							zzt.bluekey=0;
+						if (zzt.bluekey == 1) {
+							zzt.bluekey = 0;
 							WriteMessage("The Blue door is now open.");
-							zzt.board[currentboard].text[py][px].ID=0;
-							zzt.board[currentboard].text[py][px].color=0;
+							zzt.board[currentboard].text[py][px].ID = 0;
+							zzt.board[currentboard].text[py][px].color = 0;
 							return false;
-						}
-						else WriteMessage("The Blue door is locked.");
+						} else WriteMessage("The Blue door is locked.");
 						break;
 					case 2:
-						if(zzt.greenkey==1)
-						{
-							zzt.greenkey=0;
+						if(zzt.greenkey==1)	{
+							zzt.greenkey = 0;
 							WriteMessage("The Green door is now open.");
-							zzt.board[currentboard].text[py][px].ID=0;
-							zzt.board[currentboard].text[py][px].color=0;
+							zzt.board[currentboard].text[py][px].ID = 0;
+							zzt.board[currentboard].text[py][px].color = 0;
 							return false;
 						}
 						else WriteMessage("The Green door is locked.");
 						break;
 					case 3:
-						if(zzt.cyankey==1)
-						{
-							zzt.cyankey=0;
+						if (zzt.cyankey == 1) {
+							zzt.cyankey = 0;
 							WriteMessage("The Cyan door is now open.");
 							zzt.board[currentboard].text[py][px].ID=0;
 							zzt.board[currentboard].text[py][px].color=0;
 							return false;
-						}
-						else WriteMessage("The Cyan door is locked.");
+						} else WriteMessage("The Cyan door is locked.");
 						break;
 					case 4:
-						if(zzt.redkey==1)
-						{
-							zzt.redkey=0;
+						if (zzt.redkey == 1) {
+							zzt.redkey = 0;
 							WriteMessage("The Red door is now open.");
 							zzt.board[currentboard].text[py][px].ID=0;
 							zzt.board[currentboard].text[py][px].color=0;
 							return false;
-						}
-						else WriteMessage("The Red door is locked.");
+						} else WriteMessage("The Red door is locked.");
 						break;
 					case 5:
-						if(zzt.purplekey==1)
-						{
-							zzt.purplekey=0;
+						if (zzt.purplekey == 1) {
+							zzt.purplekey = 0;
 							WriteMessage("The Purple door is now open.");
 							zzt.board[currentboard].text[py][px].ID=0;
 							zzt.board[currentboard].text[py][px].color=0;
 							return false;
-						}
-						else WriteMessage("The Purple door is locked.");
+						} else WriteMessage("The Purple door is locked.");
 						break;
 					case 6:
-						if(zzt.yellowkey==1)
-						{
-							zzt.yellowkey=0;
+						if (zzt.yellowkey == 1) {
+							zzt.yellowkey = 0;
 							WriteMessage("The Yellow door is now open.");
 							zzt.board[currentboard].text[py][px].ID=0;
 							zzt.board[currentboard].text[py][px].color=0;
 							return false;
-						}
-						else WriteMessage("The Yellow door is locked.");
+						} else WriteMessage("The Yellow door is locked.");
 						break;
 					case 7:
-						if(zzt.whitekey==1)
-						{
-							zzt.whitekey=0;
+						if(zzt.whitekey==1) {
+							zzt.whitekey = 0;
 							WriteMessage("The White door is now open.");
 							zzt.board[currentboard].text[py][px].ID=0;
 							zzt.board[currentboard].text[py][px].color=0;
 							return false;
-						}
-						else WriteMessage("The White door is locked.");
+						} else WriteMessage("The White door is locked.");
 						break;
 				}
-
 			}
 			return true;
 			break;
@@ -413,7 +393,6 @@ function Solid(pID,px,py) {
 			return 0xE8;
 			break;
 		case 0x0B: //Passage
-			
 			return true;
 			break;
 		case 0x0C: //Duplicator
@@ -436,10 +415,9 @@ function Solid(pID,px,py) {
 		case 0x13: //Water
 			return true;
 		case 0x14: //Forest
-			if(pID==0)
-			{
-				zzt.board[currentboard].text[py][px].ID=0;
-				zzt.board[currentboard].text[py][px].color=0;
+			if (pID == 0) {
+				zzt.board[currentboard].text[py][px].ID = 0;
+				zzt.board[currentboard].text[py][px].color = 0;
 				return false;
 			}
 			return true;
@@ -451,15 +429,13 @@ function Solid(pID,px,py) {
 			return 0xB2;
 			break;
 		case 0x17: //Breakable
-
 			var sSTUFF = GetIDFromObject(pID);
-			switch(sSTUFF.ID)
-			{
+			switch(sSTUFF.ID) {
 				case 0x12:
 				case 0x0F:
 				case 0x22:
-				zzt.board[currentboard].text[py][px].ID=0;
-				zzt.board[currentboard].text[py][px].color=0;
+					zzt.board[currentboard].text[py][px].ID=0;
+					zzt.board[currentboard].text[py][px].color=0;
 				default:
 			}
 			return 0xB1;
@@ -476,7 +452,6 @@ function Solid(pID,px,py) {
 		case 0x1B: //Fake
 			return false;
 			break;
-
 		case 0x1D: //Blink Wall
 		case 0x1E: //Transporter
 		case 0x1F: //Line
@@ -541,19 +516,14 @@ function Solid(pID,px,py) {
 		case 0x3D://Grey blinking Text
 			return true;
 			break;
-
 		default:
 			return false;
-
 	}
 	return false;
-
 }
 
-function Bumpable(pDIRX,pDIRY,px,py)
-{
-	switch(zzt.board[currentboard].text[py][px].ID)
-	{
+function Bumpable(pDIRX,pDIRY,px,py) {
+	switch(zzt.board[currentboard].text[py][px].ID) {
 		case 0x0: //Empty
 			return false;
 			break;
@@ -632,7 +602,6 @@ function Bumpable(pDIRX,pDIRY,px,py)
 		case 0x1B: //Fake
 			return false;
 			break;
-
 		case 0x1D: //Blink Wall
 		case 0x1E: //Transporter
 		case 0x1F: //Line
@@ -697,89 +666,70 @@ function Bumpable(pDIRX,pDIRY,px,py)
 		case 0x3D://Grey blinking Text
 			return false;
 			break;
-
 		default:
 			return false;
-
 	}
 	return false;
 }
 
-
-
-function Bump(pID,pDX,pDY)
-{
+function Bump(pID,pDX,pDY) {
 	var px = zzt.board[currentboard].objects[pID].x - 1;
 	var py = zzt.board[currentboard].objects[pID].y - 1;
-
 	var startx = px;
 	var endx = px;
 	var incx = pDX;
-	if(pDX==-1) { endx = -1; }
-	if(pDX==1)  { endx = BOARD_SIZE_X; }
+	if (pDX == -1) { endx = -1; }
+	if (pDX == 1) { endx = BOARD_SIZE_X; }
 
 	var starty = py;
 	var endy = py;
 	var incy = pDY;
-	if(pDY==-1) { endy = -1; }
-	if(pDY==1)  { endy = BOARD_SIZE_Y; }
+	if (pDY == -1) { endy = -1; }
+	if (pDY == 1) { endy = BOARD_SIZE_Y; }
 
-	for(bumpx=startx;bumpx+=incx;bumpx!=endx)
-	{
-		for(bumpy=starty;bumpy+=incy;bumpy!=endy)
-		{
+	for (bumpx=startx; bumpx += incx; bumpx != endx) {
+		for (bumpy=starty; bumpy +=incy; bumpy!=endy) {
 			var willbump = true;
-			if(Bumpable(pDX,pDY,px,py))
-			{
+			if (Bumpable(pDX,pDY,px,py)) {
 
 			}
 
-			if(willbump==false)
-			{
-				if(starty!=py || starty!=px) return true;
+			if (willbump == false) {
+				if(starty != py || starty != px) return true;
 				return false;
 			}
 			//zzt.board[currentboard].text[py][px]
-			
 		}
-
 	}
-
 }
 
 
-function WriteMessage(pmsg)
-{
+function WriteMessage(pmsg) {
 	bottommessage = " "+pmsg+" ";
 	bottomframes = FPS * 4;	//4 seconds
 }
 
-function FindPassageDestination(pDEST,pCOLOR)
-{
-//TODO:  Sanitize inputs
+function FindPassageDestination(pDEST,pCOLOR) {
+	//TODO:  Sanitize inputs
 	currentboard = pDEST;
 
-	for(tfindx=0;tfindx<BOARD_SIZE_X;++tfindx)
-	{
-		for(tfindy=0;tfindy<BOARD_SIZE_Y;++tfindy)
-		{
-			if(zzt.board[currentboard].text[tfindy][tfindx].ID==0x0B && zzt.board[currentboard].text[tfindy][tfindx].color>>4 == pCOLOR)
-			{
+	for (tfindx=0; tfindx < BOARD_SIZE_X; ++tfindx) {
+		for (tfindy=0; tfindy < BOARD_SIZE_Y; ++tfindy) {
+			if (zzt.board[currentboard].text[tfindy][tfindx].ID == 0x0B && zzt.board[currentboard].text[tfindy][tfindx].color>>4 == pCOLOR) {
 				TeleportObject(0,tfindx+1,tfindy+1);
 			}
 		}
 	}
 }
 
-function TeleportObject(fID,fDX,fDY)
-{
-//Accepts Object ID, X and Y locations as input
-//X and Y are starting with 1, not 0
+function TeleportObject(fID,fDX,fDY) {
+	//Accepts Object ID, X and Y locations as input
+	//X and Y are starting with 1, not 0
 	var tempx = fDX;
 	var tempy = fDY;
 
-	if(tempx<1 || tempx>BOARD_SIZE_X) return -1;
-	if(tempy<1 || tempy>BOARD_SIZE_Y) return -1;
+	if (tempx < 1 || tempx > BOARD_SIZE_X) return -1;
+	if (tempy < 1 || tempy > BOARD_SIZE_Y) return -1;
 
 	var readID =  zzt.board[currentboard].text[zzt.board[currentboard].objects[fID].y-1][zzt.board[currentboard].objects[fID].x-1].ID;
 	var readcol = zzt.board[currentboard].text[zzt.board[currentboard].objects[fID].y-1][zzt.board[currentboard].objects[fID].x-1].color;
@@ -799,112 +749,84 @@ function TeleportObject(fID,fDX,fDY)
 	return 0;
 }
 
-function GetIDFromObject(pOBJECT)
-{
-	if(zzt.board[currentboard].objects[pOBJECT]==null) return {ID: 0,color: 0};
-	if(zzt.board[currentboard].objects[pOBJECT].x==0 || zzt.board[currentboard].objects[pOBJECT].y==0) return {ID: 0,color: 0};
+function GetIDFromObject(pOBJECT) {
+	if (zzt.board[currentboard].objects[pOBJECT] == null) return {ID: 0,color: 0};
+	if (zzt.board[currentboard].objects[pOBJECT].x == 0 || zzt.board[currentboard].objects[pOBJECT].y == 0) return {ID: 0,color: 0};
 
-	return { ID: zzt.board[currentboard].text[zzt.board[currentboard].objects[pOBJECT].y-1][zzt.board[currentboard].objects[pOBJECT].x-1].ID,
-		 color: zzt.board[currentboard].text[zzt.board[currentboard].objects[pOBJECT].y-1][zzt.board[currentboard].objects[pOBJECT].x-1].color
-		};
+	return {
+		ID: zzt.board[currentboard].text[zzt.board[currentboard].objects[pOBJECT].y-1][zzt.board[currentboard].objects[pOBJECT].x-1].ID,
+		color: zzt.board[currentboard].text[zzt.board[currentboard].objects[pOBJECT].y-1][zzt.board[currentboard].objects[pOBJECT].x-1].color
+	};
 }
 
-function GetObjectName(pOBJECT)
-{
-	if(zzt.board[currentboard].objects[pOBJECT]==null) return "";
-	if(zzt.board[currentboard].objects[pOBJECT].proglen<=0) return "";
+function GetObjectName(pOBJECT) {
+	if (zzt.board[currentboard].objects[pOBJECT] == null) return "";
+	if (zzt.board[currentboard].objects[pOBJECT].proglen <= 0) return "";
 	var porigpos = zzt.board[currentboard].objects[pOBJECT].progpos;
-	zzt.board[currentboard].objects[pOBJECT].progpos=0;
+	zzt.board[currentboard].objects[pOBJECT].progpos = 0;
 	var pline = ParseLine(pOBJECT);
-	zzt.board[currentboard].objects[pOBJECT].progpos=porigpos;
-	if(pline.command==COMMAND_NAME)
-	{
+	zzt.board[currentboard].objects[pOBJECT].progpos = porigpos;
+	if (pline.command == COMMAND_NAME) {
 		return pline.raw.slice(1,pline.raw.length-1);
 	}
 	return "";
 }
 
-function SendObjectBroadcast(pNAME,pFROMOBJECT,pMSG)
-{
+function SendObjectBroadcast(pNAME,pFROMOBJECT,pMSG) {
 	var startbroadcast = 0;
 	var endbroadcast = 0;
 
-	if(pNAME=="ALL")
-	{
-		for(startbroadcast=0;startbroadcast<=zzt.board[currentboard].objectmax;++startbroadcast)
-		{
+	if (pNAME == "ALL") {
+		for (startbroadcast=0; startbroadcast <= zzt.board[currentboard].objectmax; ++startbroadcast) {
 			SendObjectMessage(startbroadcast,pFROMOBJECT,pMSG)
 		}
-	}
-	else if(pNAME=="OTHERS")
-	{
-		for(startbroadcast=0;startbroadcast<=zzt.board[currentboard].objectmax;++startbroadcast)
-		{
-			if(startbroadcast!=pFROMOBJECT) SendObjectMessage(startbroadcast,pFROMOBJECT,pMSG)
+	} else if (pNAME=="OTHERS") {
+		for (startbroadcast = 0; startbroadcast <= zzt.board[currentboard].objectmax; ++startbroadcast) {
+			if (startbroadcast != pFROMOBJECT) SendObjectMessage(startbroadcast,pFROMOBJECT,pMSG)
 		}
-
-	}
-	else
-	{
-		for(startbroadcast=0;startbroadcast<=zzt.board[currentboard].objectmax;++startbroadcast)
-		{
-			if(GetObjectName(startbroadcast).toUpperCase()==pNAME) SendObjectMessage(startbroadcast,pFROMOBJECT,pMSG)
+	} else {
+		for (startbroadcast=0; startbroadcast <= zzt.board[currentboard].objectmax; ++startbroadcast) {
+			if (GetObjectName(startbroadcast).toUpperCase() == pNAME) SendObjectMessage(startbroadcast,pFROMOBJECT,pMSG)
 		}
-
 	}
-
 }
 
-
-
-function SendObjectMessage(pOBJECT,pFROMOBJECT,pMSG)
-{
+function SendObjectMessage(pOBJECT,pFROMOBJECT,pMSG) {
 	//TODO:  Sanitize
 	//TODO:  Fill in with nonobject stuff
 	//alert("Got a " + pMSG + " from Object " + pFROMOBJECT);
-	if(zzt.board[currentboard].objects[pOBJECT]==null) return 0;
-	if(zzt.board[currentboard].objects[pOBJECT].o2==1) return 0;	
+	if (zzt.board[currentboard].objects[pOBJECT] == null) return 0;
+	if (zzt.board[currentboard].objects[pOBJECT].o2 == 1) return 0;	
 	var origpos = zzt.board[currentboard].objects[pOBJECT].progpos;
 	//If o2==1 then the object is #lock'd
-	zzt.board[currentboard].objects[pOBJECT].progpos=0;
-	while(zzt.board[currentboard].objects[pOBJECT].progpos<zzt.board[currentboard].objects[pOBJECT].proglen)
-	{
+	zzt.board[currentboard].objects[pOBJECT].progpos = 0;
+	while (zzt.board[currentboard].objects[pOBJECT].progpos<zzt.board[currentboard].objects[pOBJECT].proglen) {
 		var pline = ParseLine(pOBJECT);
-		if(pline.command==COMMAND_LABEL)
-		{
-			if(pline.argv[0].toUpperCase()==pMSG)
-			{
+		if (pline.command == COMMAND_LABEL) {
+			if (pline.argv[0].toUpperCase() == pMSG) {
 				return 1;
 			}
 		}
 		zzt.board[currentboard].objects[pOBJECT].progpos=pline.position;
 	}
 	zzt.board[currentboard].objects[pOBJECT].progpos=origpos;
-
 	return -1;
-
-
 }
 
-
-function MoveObject(fID,fDX,fDY)
-{
-	if(fID==0 && currentboard==0) return -1; //Menu Options instead
+function MoveObject(fID,fDX,fDY) {
+	if (fID == 0 && currentboard == 0) return -1; //Menu Options instead
 
 	var tempx = zzt.board[currentboard].objects[fID].x + fDX;
 	var tempy = zzt.board[currentboard].objects[fID].y + fDY;
 
-	if(tempx<1 || tempx>BOARD_SIZE_X) return -1;
-	if(tempy<1 || tempy>BOARD_SIZE_Y) return -1;
+	if (tempx < 1 || tempx > BOARD_SIZE_X) return -1;
+	if (tempy < 1 || tempy > BOARD_SIZE_Y) return -1;
 
 	var fobject = GetObjectNumberByCoordinate(tempx-1,tempy-1);
-	if(fobject!=-1)
-	{
-		switch(zzt.board[currentboard].text[zzt.board[currentboard].objects[fobject].y-1][zzt.board[currentboard].objects[fobject].x-1].ID)
-		{
+	if (fobject != -1) {
+		switch(zzt.board[currentboard].text[zzt.board[currentboard].objects[fobject].y-1][zzt.board[currentboard].objects[fobject].x-1].ID) {
 			case 0x0B: //Passage
-				if(fID==0)
-				{
+				if (fID == 0) {
 					FindPassageDestination(zzt.board[currentboard].objects[fobject].o3,zzt.board[currentboard].text[zzt.board[currentboard].objects[fobject].y-1][zzt.board[currentboard].objects[fobject].x-1].color>>4);
 					ZZT_STATE = ZZT_PAUSE;
 	//				WriteMessage("Passage");
@@ -914,14 +836,12 @@ function MoveObject(fID,fDX,fDY)
 
 			case 0x0A:  //Scroll
 				//Enable zzt-oop when you bump this object
-				if(fID==0)
-				{
+				if (fID == 0) {
 					zzt.board[currentboard].objects[fobject].o1=1;
 				}
 			case 0x24:  //Object
 				if(fID==0) SendObjectMessage(fobject,fID,"TOUCH");
 			break;
-
 		}
 
 		return -1;
@@ -929,10 +849,9 @@ function MoveObject(fID,fDX,fDY)
 		//Send BUMP Message instead
 	}
 
-	if(Solid(fID,tempx-1,tempy-1)==false)
-	//if(Bump(fID,fDX,fDY)==true)
-	{
-		
+	if (Solid(fID,tempx-1,tempy-1) == false) {
+		//if(Bump(fID,fDX,fDY)==true)
+			
 		var readID =  zzt.board[currentboard].text[zzt.board[currentboard].objects[fID].y-1][zzt.board[currentboard].objects[fID].x-1].ID;
 		var readcol = zzt.board[currentboard].text[zzt.board[currentboard].objects[fID].y-1][zzt.board[currentboard].objects[fID].x-1].color;
 
@@ -947,16 +866,11 @@ function MoveObject(fID,fDX,fDY)
 		zzt.board[currentboard].text[tempy-1][zzt.board[currentboard].objects[fID].x-1].color = readcol;
 
 		return 0;
-	}
-	else
-	{
-		if(fID==0) WriteMessage("Your way is blocked!");
+	} else {
+		if (fID == 0) WriteMessage("Your way is blocked!");
 		return -1;
 	}
-
-
 }
-
 
 //Tim Sweeney sure does love to paint
 function GetObjectNumberByCoordinate(pcx,pcy)

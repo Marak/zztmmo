@@ -1,21 +1,22 @@
 var Template_Generic = {
-	Create: function (px,py,pxstep,pystep,pcycle,po1,po2,po3,pleader,pfollow,ptile,pcolor,pprogpos,pproglen,pprogram)
-	{
-		var tdata = {x: px,y: py,
-				xstep: pxstep,
-				ystep: pystep,
-				cycle: pcycle,
-				o1: po1,
-				o2: po2,
-				o3: po3,
-				leader: pleader,
-				follow: pfollow,
-				utile: ptile,
-				ucolor: pcolor,
-				progpos: pprogpos,
-				proglen: pproglen,
-				program: pprogram
-				};
+	Create: function (px,py,pxstep,pystep,pcycle,po1,po2,po3,pleader,pfollow,ptile,pcolor,pprogpos,pproglen,pprogram) {
+		var tdata = {
+			x: px,
+			y: py,
+			xstep: pxstep,
+			ystep: pystep,
+			cycle: pcycle,
+			o1: po1,
+			o2: po2,
+			o3: po3,
+			leader: pleader,
+			follow: pfollow,
+			utile: ptile,
+			ucolor: pcolor,
+			progpos: pprogpos,
+			proglen: pproglen,
+			program: pprogram
+		};
 		return tdata;
 	},
 	GetID: function(){},
@@ -27,10 +28,10 @@ var Template_Generic = {
 	Energized: function(pFROMOBJ,pTHIS){},
 	Shoot: function(pTHIS,pdirx,pdiry,ptype)
 	{
-		if(zzt.board[currentboard].objects[pTHIS].x+pdirx<1) return -1;
-		if(zzt.board[currentboard].objects[pTHIS].y+pdiry<1) return -1;
-		if(zzt.board[currentboard].objects[pTHIS].x+pdirx>60) return -1;
-		if(zzt.board[currentboard].objects[pTHIS].y+pdiry>25) return -1;
+		if (zzt.board[currentboard].objects[pTHIS].x+pdirx < 1) return -1;
+		if (zzt.board[currentboard].objects[pTHIS].y+pdiry < 1) return -1;
+		if (zzt.board[currentboard].objects[pTHIS].x+pdirx > 60) return -1;
+		if (zzt.board[currentboard].objects[pTHIS].y+pdiry > 25) return -1;
 		var thingy = Template_Bullet.Create(zzt.board[currentboard].objects[pTHIS].x+pdirx,
 					   zzt.board[currentboard].objects[pTHIS].y+pdiry,
 					   pdirx,
@@ -41,8 +42,7 @@ var Template_Generic = {
 					   0,0,"");
 
 		var testobj = GetObjectNumberByCoordinate(thingy.x-1,thingy.y-1)
-		if(testobj!=-1)
-		{
+		if (testobj != -1) {
 			SendObjectMessage(testobj,pTHIS,"SHOT");
 			return -2;
 		}
@@ -52,64 +52,50 @@ var Template_Generic = {
 
 var Template_Player = {
 	Create: Template_Generic.Create,
-	GetID: function()
-	{
+	GetID: function() {
 		return 0x04;
 	},
-	Execute: function(pTHIS)
-	{
-		if(zzt.tcycles>0) --zzt.tcycles;
-		if(zzt.ecycles>0) --zzt.ecycles;
+	Execute: function(pTHIS) {
+		if (zzt.tcycles > 0) --zzt.tcycles;
+		if (zzt.ecycles > 0) --zzt.ecycles;
 	},
 	Shot: Template_Generic.Shot,
 	Touch: Template_Generic.Touch,
 	Bombed: Template_Generic.Bombed,
 	Thud: Template_Generic.Thud,
 	Energized: Template_Generic.Energized,
-	Shoot: function(pTHIS,pdirx,pdiry,ptype)
-	{
-		if(zzt.board[currentboard].maxbullets==0)
-		{
+	Shoot: function(pTHIS,pdirx,pdiry,ptype) {
+		if ( zzt.board[currentboard].maxbullets == 0) {
 			WriteMessage("Can't shoot in this place!");
-		}
-		else
-		{
-			if(zzt.ammo>0)
-			{
+		} else {
+			if ( zzt.ammo > 0) {
 				var getBullet = Template_Generic.Shoot(pTHIS,pdirx,pdiry,ptype);
-				if(getBullet>-1)
-				{
-					switch(zzt.board[currentboard].objects[getBullet].utile)
-					{
+				if (getBullet > -1) {
+					switch(zzt.board[currentboard].objects[getBullet].utile) {
 						case 0x17:
-						zzt.board[currentboard].objects[getBullet].utile = 0;
-						zzt.board[currentboard].objects[getBullet].ucolor = 0;
-						KillObject(getBullet,0);
+							zzt.board[currentboard].objects[getBullet].utile = 0;
+							zzt.board[currentboard].objects[getBullet].ucolor = 0;
+							KillObject(getBullet,0);
 						default:
 					}
 					--zzt.ammo;
 				}
-				if(getBullet==-2) --zzt.ammo;
-			}
-			else
-			{
+				if (getBullet == -2) --zzt.ammo;
+			} else {
 				WriteMessage("You don't have any ammo!");
 			}
 		}
-		
 	}
 };
 
 var Template_Bullet = {
 	Create: Template_Generic.Create,
-	GetID: function()
-	{
+	GetID: function() {
 		return 0x12;
 	},
-	Execute: function(pTHIS)
-	{
+	Execute: function(pTHIS) {
 		var bullmove = MoveObject(pTHIS,zzt.board[currentboard].objects[pTHIS].xstep,zzt.board[currentboard].objects[pTHIS].ystep);
-		if(bullmove==-1) KillObject(pTHIS,0);
+		if (bullmove == -1) KillObject(pTHIS,0);
 	},
 	Shot: Template_Generic.Shot,
 	Touch: Template_Generic.Touch,
@@ -118,14 +104,11 @@ var Template_Bullet = {
 	Energized: Template_Generic.Energized,
 };
 
-function AddObject(pdata,pID,pCOLOR)
-{
-	if(GetObjectNumberByCoordinate(pdata.x-1,pdata.y-1)!=-1) return -1;
+function AddObject(pdata,pID,pCOLOR) {
+	if ( GetObjectNumberByCoordinate(pdata.x-1,pdata.y-1) != -1) return -1;
 	
-	for(var iterator=zzt.board[currentboard].objectmax;iterator>=0;--iterator)
-	{
-		if(zzt.board[currentboard].objects[iterator] == null)
-		{
+	for (var iterator=zzt.board[currentboard].objectmax; iterator >= 0; --iterator) {
+		if (zzt.board[currentboard].objects[iterator] == null) {
 			zzt.board[currentboard].objects[iterator] = pdata;
 			zzt.board[currentboard].objects[iterator].utile = zzt.board[currentboard].text[pdata.y-1][pdata.x-1].ID;
 			zzt.board[currentboard].objects[iterator].ucolor = zzt.board[currentboard].text[pdata.y-1][pdata.x-1].color;
@@ -143,17 +126,11 @@ function AddObject(pdata,pID,pCOLOR)
 	return zzt.board[currentboard].objectmax;
 }
 
-
-
-function KillObject(pOBJ,pTYPE)
-{
+function KillObject(pOBJ,pTYPE) {
 	zzt.board[currentboard].text[zzt.board[currentboard].objects[pOBJ].y-1][zzt.board[currentboard].objects[pOBJ].x-1].ID=zzt.board[currentboard].objects[pOBJ].utile;
 	zzt.board[currentboard].text[zzt.board[currentboard].objects[pOBJ].y-1][zzt.board[currentboard].objects[pOBJ].x-1].color=zzt.board[currentboard].objects[pOBJ].ucolor;
 	zzt.board[currentboard].objects[pOBJ] = null;
 }
-
-
-
 
 var Block_Empty = {
 	ID: 0x0,
@@ -162,6 +139,7 @@ var Block_Empty = {
 	Touch: function() {},
 	Break: true
 };
+
 var Block_SpecialInvisibleWall = {
 	ID: 0x1,
 	Solid: Block_Empty.Solid,
@@ -169,6 +147,7 @@ var Block_SpecialInvisibleWall = {
 	Touch: Block_Empty.Touch,
 	Break: Block_Empty.Break,
 };
+
 /*
 		case 0x1C: //Invisible Wall
 			if(pID==0)
