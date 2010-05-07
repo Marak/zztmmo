@@ -1,15 +1,21 @@
-const TERMINAL_SIZE_X = 80;
-const TERMINAL_SIZE_Y = 25;
+/*
+ *  Canvas terminal object code
+ */
+
+const TERMINAL_SIZE_X = 80;		// Width
+const TERMINAL_SIZE_Y = 25;		// and Height of our virtual terminal (in characters)
 var MOUSE_X = 0;
 var MOUSE_Y = 0;
 
+// Terminal object
 var Terminal = function() {
 
 	var terminal = [];
-	var graphicsloaded = 0;
+	var graphicsloaded = 0;		// Have all graphic assets (incl. our font image) been loaded?
 	var fontimg;
 	var ctx;
 
+	// Initialize the canvas, load our font image and prepare for artistry!
 	function SetupTerminal(callback, mcallback, kdcallback, kucallback) {
 		canvas = document.getElementById('canvas');
 		ctx = canvas.getContext("2d");
@@ -38,6 +44,7 @@ var Terminal = function() {
 		}
 	}
 	
+	// Clear our terminal scren (all characters set to blank, all colors set to black)
 	function Clear() {
 		for (var drawy = 0; drawy < TERMINAL_SIZE_Y; drawy++) {
 			for (var drawx=0; drawx < TERMINAL_SIZE_X; drawx++) {
@@ -46,6 +53,7 @@ var Terminal = function() {
 		}
 	}
 
+	// Places a given character (pchar) in the given foreground (pcolor) and background (pbgcolor) colors on our terminal at the given position (px, py)
 	function SetTerminalChar(px, py, pchar, pcolor, pbgcolor) {
 		if (pchar < 0 || pchar >= 255) return;
 		if (pcolor < 0 || pcolor > 15) return;
@@ -63,6 +71,7 @@ var Terminal = function() {
 		terminal[py*TERMINAL_SIZE_X+px].bgcolor = pbgcolor;
 	}
 
+	// Draws to the terminal the given character (pchar) in the given foreground (pcolor) and background (pbgcolor) colors at the given position (px, py)
 	function DrawTerminalChar(px, py, pchar, pcolor, pbgcolor) {
 		if (pchar == 0) {
 			ctx.drawImage(fontimg,243,96, 9, 16, px*9, py*16, 9, 16);
@@ -74,6 +83,7 @@ var Terminal = function() {
 		ctx.drawImage(fontimg,(tilex*9)+((pcolor&3)*288),(tiley*16)+((pcolor>>2)*128), 9, 16, px*9, py*16, 9, 16);
 	}
 
+	// Displays the given string in the terminal (using the given coordinates and foreground & background colors)
 	function PrintTerminalText(px, py, ptext, pcolor, pbgcolor) {
 		var plen = ptext.length;
 		var plen2 = 0;		
