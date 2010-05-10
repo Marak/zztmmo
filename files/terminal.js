@@ -79,6 +79,29 @@ var Terminal = function() {
 		}
 		var tilex = pchar % 32;
 		var tiley = pchar >> 5;
+
+		// Note:
+		// In our font.png character sprite sheet, each glyph is 9px x 16px. There are 256 glyphs in all,
+		// represented in blocks of 32 x 8 glyphs. These blocks are arranged in a grid, 4 blocks by 4 blocks,
+		// resulting in a full 256 glyph set in a total of 16 different colors.
+		//
+		// We determine the x position of the target glyph to be drawn by getting the modulus (division
+		// remainder) of the characters number (0-255) from 32, because there are 32 characters per row, per block
+		// of glyphs. We obtain the y position if the glyph to be drawn by performing a 5 space binary right shift of
+		// the characters number. This could also be done by finding the number of times the character number
+		// divides into 32 and using the resulting number as the Y, and the resulting remainder as the X, but
+		// the mod and bit shift method results in faster and fewer operations.
+		//
+		// After we have the x and y positions of the target glyph within a block of 32 x 8 glyphs, we can
+		// find the exact X pixel location by multiplying our previously calculated tilex value by 9 (because
+		// each glyph is 9 pixels wide), and then adding the result of the target color with a binary AND
+		// against 3 (which will always produce numbers between 0 and 3) plus 288. This is because there are
+		// 4 blocks of colored glyphs in each row of our image, and each colored block is 288 pixels wide.
+		// For the Y component, we perform an operation similar to how we found our tiley value above. We
+		// multiply the result of our target color bitshifted right twice by 128, which is the number of pixels
+		// high each block of glyphs occupies. The resulting x, y combination is the exacty top and left 
+		// coordinates of our character in our chosen color as it appears on the font.png sprite sheet.
+
 		ctx.drawImage(fontimg,243+((pbgcolor&3)*288),96+((pbgcolor>>2)*128), 9, 16, px*9, py*16, 9, 16);
 		ctx.drawImage(fontimg,(tilex*9)+((pcolor&3)*288),(tiley*16)+((pcolor>>2)*128), 9, 16, px*9, py*16, 9, 16);
 	}
