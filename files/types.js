@@ -1,3 +1,8 @@
+/*
+ *  Object 'templates' (Crockford just killed a kitten)
+ */
+
+// 'Template' for generic game objects (base class)
 var Template_Generic = {
 	Create: function (px,py,pxstep,pystep,pcycle,po1,po2,po3,pleader,pfollow,ptile,pcolor,pprogpos,pproglen,pprogram) {
 		var tdata = {
@@ -50,6 +55,7 @@ var Template_Generic = {
 	}
 };
 
+// 'Template' for the player object
 var Template_Player = {
 	Create: Template_Generic.Create,
 	GetID: function() {
@@ -88,6 +94,8 @@ var Template_Player = {
 	}
 };
 
+
+// 'Template' for bullet or projectile objects.
 var Template_Bullet = {
 	Create: Template_Generic.Create,
 	GetID: function() {
@@ -104,6 +112,7 @@ var Template_Bullet = {
 	Energized: Template_Generic.Energized,
 };
 
+// Add a game object (pdata) to the current board.
 function AddObject(pdata,pID,pCOLOR) {
 	if ( GetObjectNumberByCoordinate(pdata.x-1,pdata.y-1) != -1) return -1;
 	
@@ -126,6 +135,7 @@ function AddObject(pdata,pID,pCOLOR) {
 	return zzt.board[currentboard].objectmax;
 }
 
+// Remove an object (pOBJ) from the current board
 function KillObject(pOBJ,pTYPE) {
 	zzt.board[currentboard].text[zzt.board[currentboard].objects[pOBJ].y-1][zzt.board[currentboard].objects[pOBJ].x-1].ID=zzt.board[currentboard].objects[pOBJ].utile;
 	zzt.board[currentboard].text[zzt.board[currentboard].objects[pOBJ].y-1][zzt.board[currentboard].objects[pOBJ].x-1].color=zzt.board[currentboard].objects[pOBJ].ucolor;

@@ -1,3 +1,4 @@
+// Draws the viewable area of the current board at the given position, taking into account lighting conditions.
 function DrawBoardPosition(drawx,drawy) {
 	var foundID = zzt.board[currentboard].text[drawy][drawx].ID;
 	var foundCOL = zzt.board[currentboard].text[drawy][drawx].color;
@@ -45,6 +46,7 @@ function DrawBoardPosition(drawx,drawy) {
 	}
 }
 
+// Takes the given object id (fID) and returns the appropriate character code (in hex) to be displayed for that character.
 function GetCharacter(fID,fCOLOR) {
 	switch (fID) {
 		case 0x0: //Empty
@@ -187,6 +189,7 @@ function GetCharacter(fID,fCOLOR) {
 	}
 }
 
+// Tests for collision at the given position on the current board. Also handles player collision with items which can be picked up, such as gems or torches.
 function Solid(pID,px,py) {
 	switch (zzt.board[currentboard].text[py][px].ID) {
 		case 0x0: //Empty
@@ -522,6 +525,7 @@ function Solid(pID,px,py) {
 	return false;
 }
 
+// Returns true/false if the object at the given location on the board is 'bumpable', or, can be activated to perform an action through a player collision.
 function Bumpable(pDIRX,pDIRY,px,py) {
 	switch(zzt.board[currentboard].text[py][px].ID) {
 		case 0x0: //Empty
@@ -672,6 +676,7 @@ function Bumpable(pDIRX,pDIRY,px,py) {
 	return false;
 }
 
+// Performs a 'bump', or, collision based activation, on the object which exists on the current board at the given position.
 function Bump(pID,pDX,pDY) {
 	var px = zzt.board[currentboard].objects[pID].x - 1;
 	var py = zzt.board[currentboard].objects[pID].y - 1;
@@ -703,7 +708,7 @@ function Bump(pID,pDX,pDY) {
 	}
 }
 
-
+// Sets the 'status' text which is displayed at the bottom of the terminal.
 function WriteMessage(pmsg) {
 	bottommessage = " "+pmsg+" ";
 	bottomframes = FPS * 4;	//4 seconds
@@ -722,6 +727,7 @@ function FindPassageDestination(pDEST,pCOLOR) {
 	}
 }
 
+// 'Teleports' a given object from its current location to the given location on the current board.
 function TeleportObject(fID,fDX,fDY) {
 	//Accepts Object ID, X and Y locations as input
 	//X and Y are starting with 1, not 0
@@ -749,6 +755,7 @@ function TeleportObject(fID,fDX,fDY) {
 	return 0;
 }
 
+// Returns the ID for a given game object.
 function GetIDFromObject(pOBJECT) {
 	if (zzt.board[currentboard].objects[pOBJECT] == null) return {ID: 0,color: 0};
 	if (zzt.board[currentboard].objects[pOBJECT].x == 0 || zzt.board[currentboard].objects[pOBJECT].y == 0) return {ID: 0,color: 0};
@@ -759,6 +766,7 @@ function GetIDFromObject(pOBJECT) {
 	};
 }
 
+// Returns the name for a given game object.
 function GetObjectName(pOBJECT) {
 	if (zzt.board[currentboard].objects[pOBJECT] == null) return "";
 	if (zzt.board[currentboard].objects[pOBJECT].proglen <= 0) return "";
@@ -772,6 +780,7 @@ function GetObjectName(pOBJECT) {
 	return "";
 }
 
+// Broadcasts a program message from an object to one or more objects (possibly including itself).
 function SendObjectBroadcast(pNAME,pFROMOBJECT,pMSG) {
 	var startbroadcast = 0;
 	var endbroadcast = 0;
@@ -791,6 +800,7 @@ function SendObjectBroadcast(pNAME,pFROMOBJECT,pMSG) {
 	}
 }
 
+// Sends a program message from one object (pFROMOBJECT) to another (pOBJECT)
 function SendObjectMessage(pOBJECT,pFROMOBJECT,pMSG) {
 	//TODO:  Sanitize
 	//TODO:  Fill in with nonobject stuff
@@ -813,6 +823,7 @@ function SendObjectMessage(pOBJECT,pFROMOBJECT,pMSG) {
 	return -1;
 }
 
+// Moves the given object from its current position to the given position.
 function MoveObject(fID,fDX,fDY) {
 	if (fID == 0 && currentboard == 0) return -1; //Menu Options instead
 
@@ -872,7 +883,8 @@ function MoveObject(fID,fDX,fDY) {
 	}
 }
 
-//Tim Sweeney sure does love to paint
+// Tim Sweeney sure does love to paint (haha!)
+// Returns the id of the object which exists on the current board at the given position.
 function GetObjectNumberByCoordinate(pcx,pcy)
 {
 	var looper;
@@ -886,12 +898,12 @@ function GetObjectNumberByCoordinate(pcx,pcy)
 	return -1;
 }
 
-function IsHit(x1,y1,r1,x2,y2,r2)
-{
+// Returns true if the circular area expressed by (x1, y1, r1 as radius) overlaps with the cirular area expressed by (x2, y2, r2 as radius).
+function IsHit(x1,y1,r1,x2,y2,r2) {
     var d = r1 + r2;
     var a = (x2 - x1)/1.42;
     var b = y2 - y1;
-    if( a > d || a < -d || b > d || b < -d) return 0;
+    if ( a > d || a < -d || b > d || b < -d) return 0;
     return a*a + b*b < d*d;
 }
 
@@ -1315,6 +1327,7 @@ function ZZTOOP(ptype,pobj)
 	}
 }
 
+// Called when the current player takes damage. Displays a message and subtracts from health by the given amount (amount).
 function Hurt(amount)
 {
 	WriteMessage("Ouch!");
@@ -1559,6 +1572,7 @@ function DrawMessage()
 	}
 }
 
+// Master game update function. Depending on the game state (ZZT_STATE), handles execution of object code and all screen draw updates.
 function Update()
 {
 	switch(ZZT_STATE)
@@ -1614,6 +1628,8 @@ function ExecMessage()
 	}
 
 }
+
+// Clears the current terminal canvas area and redraws the contents of the screen.
 function RedrawEverything()
 {
 	for(var bdrawy=0;bdrawy<TERMINAL_SIZE_Y;bdrawy++)
