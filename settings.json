@@ -2,7 +2,7 @@
     "port" : 9000,
 
     "default_host" : {
-        "root" : "/usr/src/nodejitsu/local/zzt/zztmmo"
+        "root" : ""
     }
 
 }
